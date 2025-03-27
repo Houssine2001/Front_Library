@@ -1,0 +1,106 @@
+<div class="cart-container">
+  <h1 class="section-title">Mon Panier</h1>
+  
+  <div class="cart-content">
+    <!-- Empty cart state -->
+    <div *ngIf="itemsWithDetails.length === 0" class="empty-cart">
+      <div class="empty-cart-icon">
+        <i class="fas fa-shopping-cart"></i>
+      </div>
+      <h2>Votre panier est vide</h2>
+      <p>Découvrez notre sélection de livres et commencez vos achats!</p>
+      <a routerLink="/books" class="browse-books-btn">Explorer les livres</a>
+    </div>
+
+    <!-- Cart items -->
+    <div *ngIf="itemsWithDetails.length > 0" class="cart-items-container">
+      <div class="cart-headers">
+        <div class="header-product">Produit</div>
+        <div class="header-price">Prix unitaire</div>
+        <div class="header-quantity">Quantité</div>
+        <div class="header-total">Total</div>
+        <div class="header-actions"></div>
+      </div>
+
+      <div class="cart-items">
+        <div *ngFor="let item of itemsWithDetails" class="cart-item">
+          <div class="item-product">
+            <!-- Image placeholder - replace with actual book image if available -->
+            <div class="item-image">
+              <img [src]="'https://picsum.photos/seed/' + item.bookId + '/80/120'" alt="{{ item.bookTitle }}">
+            </div>
+            <div class="item-details">
+              <h3 class="item-title">{{ item.bookTitle }}</h3>
+              <p class="item-author" *ngIf="item.bookAuthor">{{ item.bookAuthor }}</p>
+            </div>
+          </div>
+          
+          <div class="item-price">{{ item.price / item.quantity | currency:'EUR':'symbol':'1.2-2' }}</div>
+          
+          <div class="quantity-controls">
+            <button (click)="decreaseQuantity(item)" class="quantity-btn" aria-label="Diminuer la quantité">
+              <i class="fas fa-minus"></i>
+            </button>
+            <span class="quantity-value">{{ item.quantity }}</span>
+            <button (click)="increaseQuantity(item)" class="quantity-btn" aria-label="Augmenter la quantité">
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+          
+          <div class="item-total">{{ item.price | currency:'EUR':'symbol':'1.2-2' }}</div>
+          
+          <div class="item-actions">
+            <button (click)="removeFromCart(item.bookId)" class="remove-btn" aria-label="Supprimer du panier">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cart Summary/Checkout -->
+    <div *ngIf="itemsWithDetails.length > 0" class="checkout-container">
+      <div class="promo-code-container">
+        <h3>Code promotionnel</h3>
+        <div class="promo-code-input">
+          <input [(ngModel)]="promoCode" placeholder="Entrez votre code promo" class="promo-input">
+          <button (click)="applyDiscount()" class="apply-btn">Appliquer</button>
+        </div>
+      </div>
+      
+      <div class="order-summary">
+        <h3>Résumé de la commande</h3>
+        
+        <div class="summary-row">
+          <span>Sous-total</span>
+          <span>{{ total.subtotal | currency:'EUR':'symbol':'1.2-2' }}</span>
+        </div>
+        
+        <div class="summary-row">
+          <span>Taxe (10%)</span>
+          <span>{{ total.tax | currency:'EUR':'symbol':'1.2-2' }}</span>
+        </div>
+        
+        <div class="summary-row">
+          <span>Frais de livraison</span>
+          <span>{{ total.shipping | currency:'EUR':'symbol':'1.2-2' }}</span>
+        </div>
+        
+        <div class="summary-row total-row">
+          <span>Total</span>
+          <span>{{ total.total | currency:'EUR':'symbol':'1.2-2' }}</span>
+        </div>
+        
+        <div class="checkout-actions">
+          <button (click)="placeOrder()" class="checkout-btn">
+            <i class="fas fa-lock"></i> Passer la commande
+          </button>
+          
+          <button (click)="clearCart()" class="clear-cart-btn">
+            <i class="fas fa-trash"></i> Vider le panier
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

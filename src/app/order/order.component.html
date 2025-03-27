@@ -1,0 +1,51 @@
+<div class="order-container">
+  <div *ngIf="paymentStatus === 'success'" class="payment-success-banner">
+    <span class="success-icon">✓</span>
+    <span class="success-message">Paiement confirmé avec succès !</span>
+  </div>
+
+  <h1 class="section-title">Détails de la commande</h1>
+  
+  <div class="order-card">
+    <div class="order-header">
+      <div class="order-id">
+        <span class="label">Commande</span>
+        <span class="value">#{{orderId}}</span>
+      </div>
+      
+      <div class="order-status" 
+           [class.status-processing]="orderStatus === 'PROCESSING'"
+           [class.status-shipped]="orderStatus === 'SHIPPED'"
+           [class.status-delivered]="orderStatus === 'DELIVERED'"
+           [class.status-cancelled]="orderStatus === 'CANCELLED'">
+        <span class="status-indicator"></span>
+        <span class="status-text">{{orderStatus}}</span>
+      </div>
+    </div>
+    
+    <div class="order-content">
+      <div class="barcode-container">
+        <img class="barcode-image" src="../../assets/Barcode-bro.png" alt="Code-barres de commande">
+        <p class="barcode-reference">Référence : #{{orderId}}</p>
+      </div>
+    </div>
+    
+    <div class="order-footer">
+      <button class="action-button download-button" (click)="downloadInvoice()">
+        <i class="fas fa-file-download"></i> Télécharger la facture
+      </button>
+      
+      <button class="action-button cancel-button" 
+              (click)="cancelOrder()" 
+              *ngIf="orderStatus !== 'CANCELLED'">
+        <i class="fas fa-times-circle"></i> Annuler la commande
+      </button>
+    </div>
+  </div>
+  
+  <div class="navigation-links">
+    <a routerLink="/books" class="back-link">
+      <i class="fas fa-arrow-left"></i> Continuer mes achats
+    </a>
+  </div>
+</div>

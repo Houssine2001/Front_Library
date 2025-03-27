@@ -1,0 +1,182 @@
+.cancel-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .cancel-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    padding: 3rem 2rem;
+    text-align: center;
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .cancel-icon {
+    font-size: 5rem;
+    color: #dc3545;
+    margin-bottom: 1.5rem;
+    animation: pulse 2s infinite;
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+  
+  .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 1rem;
+    display: inline-block;
+  }
+  
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    width: 50%;
+    height: 4px;
+    background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+    border-radius: 2px;
+  }
+  
+  .cancel-message {
+    margin-bottom: 2rem;
+    color: #666;
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+  
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+  
+  .retry-button, .continue-shopping-button {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+  }
+  
+  .retry-button {
+    background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+    color: white;
+  }
+  
+  .retry-button:hover {
+    background: linear-gradient(90deg, #5a0cb1 0%, #1565e0 100%);
+    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
+    transform: translateY(-2px);
+  }
+  
+  .continue-shopping-button {
+    background-color: white;
+    color: #6a11cb;
+    border: 1px solid #6a11cb;
+  }
+  
+  .continue-shopping-button:hover {
+    background-color: rgba(106, 17, 203, 0.05);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.2);
+  }
+  
+  .retry-button i, .continue-shopping-button i {
+    margin-right: 8px;
+  }
+  
+  .help-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #eee;
+    color: #666;
+  }
+  
+  .help-section h3 {
+    margin-bottom: 1rem;
+    color: #333;
+    font-size: 1.3rem;
+  }
+  
+  .help-section p {
+    margin-bottom: 1rem;
+  }
+  
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    color: #6a11cb;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .contact-link i {
+    margin-right: 8px;
+  }
+  
+  .contact-link:hover {
+    color: #2575fc;
+    text-decoration: underline;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .cancel-container {
+      padding: 1.5rem;
+    }
+    
+    .action-buttons {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .retry-button, .continue-shopping-button {
+      width: 100%;
+      justify-content: center;
+    }
+    
+    .section-title {
+      font-size: 1.8rem;
+    }
+    
+    .cancel-icon {
+      font-size: 4rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .cancel-container {
+      padding: 1rem;
+    }
+    
+    .cancel-card {
+      padding: 2rem 1rem;
+    }
+    
+    .section-title {
+      font-size: 1.5rem;
+    }
+  }

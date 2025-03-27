@@ -1,0 +1,45 @@
+<header class="site-header">
+  <div class="container">
+    <div class="navbar">
+      <div class="logo">
+        <a routerLink="/">
+          <span class="logo-text">Book<span class="highlight">Haven</span></span>
+        </a>
+      </div>
+      
+      <nav class="main-nav">
+        <ul class="nav-links">
+          <li><a routerLink="/books" routerLinkActive="active">Explore Books</a></li>
+          <li>
+            <a routerLink="/cart" routerLinkActive="active">
+              <div class="cart-link">
+                <span>My Cart</span>
+                <div class="cart-icon">
+                  <i class="fas fa-shopping-cart"></i>
+                  <!-- Uncomment and use this when you have cart service integrated to show cart items count -->
+                  <!-- <span class="cart-counter" *ngIf="cartItemCount > 0">{{ cartItemCount }}</span> -->
+                </div>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      
+      <div class="mobile-menu-toggle" [class.active]="mobileMenuOpen">
+        <button (click)="toggleMobileMenu()" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Mobile menu (hidden by default) -->
+    <div class="mobile-menu" [class.active]="mobileMenuOpen">
+      <ul class="mobile-nav-links">
+        <li><a routerLink="/books" routerLinkActive="active" (click)="closeMobileMenu()">Explore Books</a></li>
+        <li><a routerLink="/cart" routerLinkActive="active" (click)="closeMobileMenu()">My Cart</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
