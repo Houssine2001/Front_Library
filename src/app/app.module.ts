@@ -7,9 +7,17 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { BooksComponent } from './books/books.component';
 import { CartComponent } from './cart/cart.component';
 import { OrderComponent } from './order/order.component';
-import { OrderCancelComponent } from './order-cancel-component/order-cancel-component.component';  // Ajoute l'import
+import { OrderCancelComponent } from './order-cancel-component/order-cancel-component.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSelectModule } from '@angular/material/select';
+import { BookEditComponent } from './book-edit/book-edit.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -18,14 +26,22 @@ import { HttpClientModule } from '@angular/common/http';
     BooksComponent,
     CartComponent,
     OrderComponent,
-    OrderCancelComponent,  // Ajoute ici aussi
+    OrderCancelComponent,
+    BookEditComponent
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    MatSelectModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

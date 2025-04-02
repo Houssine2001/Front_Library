@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BookService } from '../services/book.service';
 import { Book } from '../models/Book';
-import { CartService } from '../services/cart.service';
-import { finalize } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-books',
@@ -10,50 +10,84 @@ import { finalize } from 'rxjs/operators';
   styleUrls: ['./books.component.css']
 })
 export class BooksComponent implements OnInit {
+  displayedColumns: string[] = ['title', 'author', 'genre', 'isbn', 'price', 'quantity', 'actions'];
   books: Book[] = [];
-  loading = true;
-  errorMessage: string | null = null;
+  sortDirection = 'asc';
+  minPrice: number | undefined;
+  maxPrice: number | undefined;
+  newBook: Book = {
+    id: null,
+    title: '',
+    author: '',
+    genre: '',
+    isbn: '',
+    description: '',
+    price: 0,
+    quantity: 0
+  };
 
-  constructor(private bookService: BookService, private cartService: CartService) { }
+  constructor(
+    private bookService: BookService,
+    private snackBar: MatSnackBar,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.loadBooks();
   }
-  
+
   loadBooks(): void {
-    this.loading = true;
-    this.errorMessage = null;
-    
-    this.bookService.getBooks().pipe(
-      finalize(() => {
-        this.loading = false;
-      })
-    ).subscribe(
-      books => {
-        console.log('Livres récupérés depuis l\'API:', books);
-        this.books = books;
-      },
-      error => {
-        console.error('Erreur lors de la récupération des livres:', error);
-        this.errorMessage = 'Impossible de charger les livres. Veuillez réessayer plus tard.';
-      }
+    this.bookService.getBooksSortedByPrice(this.sortDirection, this.minPrice, this.maxPrice).subscribe(
+      (data) => this.books = data,
+      (error) => this.showError('Error loading books')
     );
   }
 
-  addToCart(bookId: number): void {
-    // Using a default userId of 1 for demonstration
-    const userId = 1;
-    const quantity = 1;
-    
-    this.cartService.addToCart(userId, bookId, quantity).subscribe(
-      response => {
-        console.log('Livre ajouté au panier:', response);
-        // You could show a success notification here
+  applySortAndFilter(): void {
+    this.loadBooks();
+  }
+
+  addBook(): void {
+    this.bookService.createBook(this.newBook).subscribe(
+      () => {
+        this.loadBooks();
+        this.snackBar.open('Book added - Email sent to users', 'Close', { duration: 3000 });
+        this.resetNewBook();
       },
-      error => {
-        console.error('Erreur lors de l\'ajout au panier:', error);
-        // You could show an error notification here
-      }
+      (error) => this.showError('Error adding book')
     );
+  }
+
+  editBook(id: number): void {
+    this.router.navigate(['/edit-book', id]);
+  }
+
+  deleteBook(id: number): void {
+    if (confirm('Are you sure you want to delete this book?')) {
+      this.bookService.deleteBook(id).subscribe(
+        () => {
+          this.loadBooks();
+          this.snackBar.open('Book deleted successfully', 'Close', { duration: 3000 });
+        },
+        (error) => this.showError('Error deleting book')
+      );
+    }
+  }
+
+  private resetNewBook(): void {
+    this.newBook = {
+      id: null,
+      title: '',
+      author: '',
+      genre: '',
+      isbn: '',
+      description: '',
+      price: 0,
+      quantity: 0
+    };
+  }
+
+  private showError(message: string): void {
+    this.snackBar.open(message, 'Close', { duration: 3000, panelClass: ['error-snackbar'] });
   }
 }
