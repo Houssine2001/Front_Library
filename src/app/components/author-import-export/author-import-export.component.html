@@ -1,0 +1,14 @@
+<div class="toolbar">
+  <div class="toolbar-actions">
+    <button mat-raised-button class="action-button" (click)="exportToCSV()" matTooltip="Exporter en CSV">
+      <mat-icon>file_download</mat-icon> Exporter CSV
+    </button>
+    <button mat-raised-button class="action-button" (click)="exportToPDF()" matTooltip="Exporter en PDF">
+      <mat-icon>picture_as_pdf</mat-icon> Exporter PDF
+    </button>
+    <button mat-raised-button class="action-button" (click)="fileInput.click()" matTooltip="Importer depuis CSV">
+      <mat-icon>file_upload</mat-icon> Importer CSV
+    </button>
+    <input type="file" accept=".csv" #fileInput style="display: none;" (change)="onFileSelected($event)" />
+  </div>
+</div>

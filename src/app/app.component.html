@@ -1,0 +1,25 @@
+<app-navbar></app-navbar>
+<main class="main-content">
+  <div class="container">
+    <!-- Afficher ces éléments uniquement sur la route /ListAuthors -->
+    <ng-container *ngIf="isAuthorManagementRoute">
+      
+      <h1 class="section-title">Gestion des Auteurs</h1>
+
+      <!-- Bouton flottant pour ajouter un auteur -->
+      <button mat-fab color="primary" routerLink="/create" class="fab-button" aria-label="Ajouter un auteur">
+        <mat-icon>add</mat-icon>
+      </button>
+
+      <!-- Ajouter le composant d'import/export ici -->
+      <app-author-import-export></app-author-import-export>
+    </ng-container>
+
+    <router-outlet></router-outlet>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p>© 2025 BookHaven. All rights reserved.</p>
+  </div>
+</footer>

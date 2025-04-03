@@ -1,0 +1,48 @@
+<div class="form-container">
+  <h2>{{ authorId ? 'Modifier un Auteur' : 'Créer un Auteur' }}</h2>
+  <form [formGroup]="authorForm" (ngSubmit)="onSubmit()" class="author-form">
+    <!-- Champ Nom -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nom</mat-label>
+      <mat-icon matPrefix>person</mat-icon>
+      <input matInput formControlName="name" placeholder="Entrez le nom de l'auteur">
+      <mat-error *ngIf="authorForm.get('name')?.hasError('required')">
+        Le nom est requis
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Champ Biographie -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Biographie</mat-label>
+      <mat-icon matPrefix>description</mat-icon>
+      <textarea matInput formControlName="biography" rows="5" placeholder="Entrez la biographie de l'auteur"></textarea>
+      <mat-error *ngIf="authorForm.get('biography')?.hasError('required')">
+        La biographie est requise
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Champ URL Photo -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>URL Photo</mat-label>
+      <mat-icon matPrefix>image</mat-icon>
+      <input matInput formControlName="photoUrl" placeholder="Entrez l'URL de la photo" (input)="onPhotoUrlChange()">
+    </mat-form-field>
+
+    <!-- Aperçu de la photo -->
+    <div class="photo-preview" *ngIf="authorForm.get('photoUrl')?.value">
+      <h3>Aperçu de la photo</h3>
+      <img [src]="authorForm.get('photoUrl')?.value" alt="Aperçu de la photo" class="preview-image" (error)="onImageError()">
+      <p class="error-message" *ngIf="imageLoadError">Impossible de charger l'image. Vérifiez l'URL.</p>
+    </div>
+
+    <!-- Bouton de soumission -->
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit" class="submit-button" [disabled]="!authorForm.valid">
+        {{ authorId ? 'Modifier' : 'Créer' }}
+      </button>
+      <button mat-stroked-button type="button" class="cancel-button" [routerLink]="['/ListAuthors']">
+        Annuler
+      </button>
+    </div>
+  </form>
+</div>

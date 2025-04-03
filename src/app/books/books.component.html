@@ -1,0 +1,55 @@
+<div class="books-container">
+  <h1 class="section-title">Explore Our Collection</h1>
+  
+  <!-- Loading State -->
+  <div class="loading-container" *ngIf="loading">
+    <div class="loading-spinner"></div>
+  </div>
+  
+  <!-- Error State -->
+  <div class="error-container" *ngIf="errorMessage">
+    <span class="error-icon">⚠️</span>
+    <p>{{ errorMessage }}</p>
+  </div>
+  
+  <!-- Books Grid -->
+  <div class="books-grid" *ngIf="!loading && !errorMessage">
+    <div class="book-card" *ngFor="let book of books; let i = index" [style.animation-delay]="i * 0.1 + 's'">
+      <span class="genre-badge" *ngIf="book.genre">{{ book.genre }}</span>
+      
+      <div class="book-image-container">
+        <!-- Use a default image if you don't have book covers -->
+        <img class="book-image" [src]="'https://picsum.photos/seed/' + book.id + '/400/300'" alt="{{ book.title }}">
+      </div>
+      
+      <div class="book-content">
+        <h3 class="book-title">{{ book.title }}</h3>
+        <p class="book-author">by {{ book.author }}</p>
+        
+        <p class="book-description" *ngIf="book.description">
+          {{ book.description | slice:0:120 }}{{ book.description && book.description.length > 120 ? '...' : '' }}
+        </p>
+        
+        <div class="book-meta">
+          <span class="book-price">{{ book.price | currency:'EUR':'symbol':'1.2-2' }}</span>
+          
+          <span class="stock-badge" 
+                [class.in-stock]="book.quantity > 5"
+                [class.low-stock]="book.quantity > 0 && book.quantity <= 5"
+                [class.out-of-stock]="book.quantity <= 0">
+            {{ book.quantity > 5 ? 'In Stock' : 
+               book.quantity > 0 ? 'Low Stock' : 'Out of Stock' }}
+          </span>
+        </div>
+        
+        <div class="book-card-footer">
+          <button class="add-to-cart-btn" 
+                  (click)="addToCart(book.id)" 
+                  [disabled]="book.quantity <= 0">
+            {{ book.quantity > 0 ? 'Add to Cart' : 'Out of Stock' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

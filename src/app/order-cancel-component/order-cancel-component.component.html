@@ -1,0 +1,32 @@
+<div class="cancel-container">
+    <div class="cancel-card">
+      <div class="cancel-icon">
+        <i class="fas fa-times-circle"></i>
+      </div>
+      
+      <h1 class="section-title">Commande Annulée</h1>
+      
+      <div class="cancel-message">
+        <p>Votre paiement n'a pas pu être effectué ou a été annulé.</p>
+        <p>Pas d'inquiétude, vos articles sont toujours dans votre panier.</p>
+      </div>
+      
+      <div class="action-buttons">
+        <button (click)="retryPayment()" class="retry-button">
+          <i class="fas fa-redo"></i> Réessayer le paiement
+        </button>
+        
+        <button (click)="navigateToBooks()" class="continue-shopping-button">
+          <i class="fas fa-book"></i> Continuer mes achats
+        </button>
+      </div>
+      
+      <div class="help-section">
+        <h3>Besoin d'aide?</h3>
+        <p>Si vous rencontrez des problèmes avec votre paiement, n'hésitez pas à contacter notre service client.</p>
+        <a href="mailto:support@bookhaven.com" class="contact-link">
+          <i class="fas fa-envelope"></i> support@bookhaven.com
+        </a>
+      </div>
+    </div>
+  </div>
