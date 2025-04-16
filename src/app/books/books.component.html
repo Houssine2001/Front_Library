@@ -43,12 +43,12 @@
         </div>
         
         <div class="book-card-footer">
-          <button class="add-to-cart-btn" 
-                  (click)="addToCart(book.id)" 
-                  [disabled]="book.quantity <= 0">
-            {{ book.quantity > 0 ? 'Add to Cart' : 'Out of Stock' }}
-          </button>
-        </div>
+        <button class="add-to-cart-btn" 
+                (click)="book.id !== null ? addToCart(book.id) : null" 
+                [disabled]="book.quantity <= 0 || book.id === null">
+          {{ book.quantity > 0 ? 'Add to Cart' : 'Out of Stock' }}
+        </button>
+      </div>
       </div>
     </div>
   </div>

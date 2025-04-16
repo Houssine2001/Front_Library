@@ -20,6 +20,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSelectModule } from '@angular/material/select';
+import { BookEditComponent } from './book-edit/book-edit.component';
+import { MatCardModule } from '@angular/material/card';
+import { BookComponent } from './book/book.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +36,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     OrderCancelComponent,
     AuthorListComponent,
     AuthorFormComponent,
-    AuthorImportExportComponent  // Ajoute ici aussi
+    AuthorImportExportComponent,
+    BookEditComponent,
+    BookComponent // Ajoute ici aussi
   ],
   imports: [
     HttpClientModule,
@@ -46,7 +54,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatInputModule,
     AppRoutingModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatCardModule,
+    MatSnackBarModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
