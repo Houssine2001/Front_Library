@@ -1,0 +1,63 @@
+<div class="event-details-container">
+  <button class="back-btn" (click)="goBack()">Back to Events</button>
+  
+  <h1 class="section-title">Event Details</h1>
+  
+  <div class="event-card" *ngIf="event">
+    <div class="event-header">
+      <h2 class="event-title">{{ event.title }}</h2>
+      <div class="event-date">{{ event.date | date:'medium' }}</div>
+      <div class="event-location">{{ event.location }}</div>
+    </div>
+    
+    <div class="event-content">
+      <div class="event-description">
+        {{ event.description }}
+      </div>
+      
+      <div class="event-meta">
+        <div class="meta-item">
+          <span class="meta-label">Maximum Participants</span>
+          <span class="meta-value">{{ event.maxParticipants }}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Current Participants</span>
+          <span class="meta-value">{{ event.currentParticipants }}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Spots Available</span>
+          <span class="meta-value">{{ event.maxParticipants - event.currentParticipants }}</span>
+        </div>
+      </div>
+      
+      <div class="participation-section">
+        <div class="participation-status" 
+             [class.status-full]="event.currentParticipants >= event.maxParticipants"
+             [class.status-limited]="event.maxParticipants - event.currentParticipants <= 5 && event.maxParticipants > event.currentParticipants"
+             [class.status-available]="event.maxParticipants - event.currentParticipants > 5">
+          <h3>
+            {{ event.currentParticipants >= event.maxParticipants ? 'Event is Full' : 
+               event.maxParticipants - event.currentParticipants <= 5 ? 'Few Spots Left' : 'Spots Available' }}
+          </h3>
+          <span>{{ event.maxParticipants - event.currentParticipants }} spots remaining</span>
+        </div>
+        
+        <button class="participate-btn" 
+                [disabled]="event.currentParticipants >= event.maxParticipants || isParticipating"
+                (click)="registerForEvent()">
+          {{ isParticipating ? 'Already Registered' : 
+             event.currentParticipants >= event.maxParticipants ? 'Event Full' : 'Register for Event' }}
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="!event && !error" class="loading-container">
+    <div class="loading-spinner"></div>
+  </div>
+  
+  <div *ngIf="error" class="error-container">
+    <span class="error-icon">⚠️</span>
+    <p>{{ error }}</p>
+  </div>
+</div>

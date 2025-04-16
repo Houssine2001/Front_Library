@@ -8,7 +8,8 @@ import { AuthorListComponent } from './components/author-list/author-list.compon
 import { AuthorFormComponent } from './components/author-form/author-form.component';
 import { BookEditComponent } from './book-edit/book-edit.component'; // Ajoute l'import
 import { BookComponent } from './book/book.component';
-
+import { EventListComponent } from './event-list/event-list.component'; // Add this import
+import { EventDetailsComponent } from './event-details/event-details.component'; // Add this import
 const routes: Routes = [
   { path: '', redirectTo: '/books', pathMatch: 'full' },
   { path: 'order/:id', component: OrderComponent },
@@ -21,6 +22,8 @@ const routes: Routes = [
   { path: 'ListAuthors', component: AuthorListComponent }, 
   { path: 'edit-book/:id', component: BookEditComponent },
   { path: 'book', component: BookComponent },
+  { path: 'ListEvents', component: EventListComponent },
+  { path: 'event/:id', component: EventDetailsComponent }
   // Ajoute cette route
 ];
 

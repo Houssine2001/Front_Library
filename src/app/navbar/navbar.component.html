@@ -10,6 +10,7 @@
       <nav class="main-nav">
         <ul class="nav-links">
           <li><a routerLink="/ListAuthors" routerLinkActive="active">Gestion des Auteurs</a></li>
+          <li><a routerLink="/ListEvents" routerLinkActive="active">Gestion des évenements</a></li>
           <li><a routerLink="/books" routerLinkActive="active">Explore Books</a></li>
           <li><a routerLink="/book" routerLinkActive="active">Add Book</a></li>
           <li>
@@ -25,18 +26,13 @@
         </ul>
       </nav>
       
-      <div class="mobile-menu-toggle" [class.active]="mobileMenuOpen">
-        <button (click)="toggleMobileMenu()" aria-label="Toggle menu">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-      </div>
+      <!-- ...existing code... -->
     </div>
     
     <div class="mobile-menu" [class.active]="mobileMenuOpen">
       <ul class="mobile-nav-links">
         <li><a routerLink="/ListAuthors" routerLinkActive="active" (click)="closeMobileMenu()">Gestion des Auteurs</a></li>
+        <li><a routerLink="/ListEvents" routerLinkActive="active" (click)="closeMobileMenu()">Gestion des évenements</a></li>
         <li><a routerLink="/books" routerLinkActive="active" (click)="closeMobileMenu()">Explore Books</a></li>
         <li><a routerLink="/cart" routerLinkActive="active" (click)="closeMobileMenu()">My Cart</a></li>
       </ul>

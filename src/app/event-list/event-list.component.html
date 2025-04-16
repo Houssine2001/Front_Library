@@ -1,0 +1,84 @@
+<div class="event-container">
+    <div class="header">
+      <h2>Upcoming Events</h2>
+      <button class="add-button" (click)="toggleAddForm()">Add Event</button>
+    </div>
+  
+    <div class="event-cards">
+      <div class="event-card" *ngFor="let event of events">
+        <div (click)="goToEventDetails(event.id)">
+          <h3>{{ event.title }}</h3>
+          <p>Date: {{ event.date | date:'medium' }}</p>
+          <p>Max Participants: {{ event.maxParticipants }}</p>
+        </div>
+        <div class="card-actions">
+          <span class="icon modify-icon" (click)="modifyEvent(event)" title="Modify">
+            ✏️
+          </span>
+          <span class="icon delete-icon" (click)="deleteEvent(event.id)" title="Delete">
+            🗑️
+          </span>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Add Event Form -->
+    <div *ngIf="showAddForm" class="add-form">
+      <h3>Add New Event</h3>
+      <form (ngSubmit)="addEvent()">
+        <div>
+          <label for="title">Title:</label>
+          <input id="title" type="text" [(ngModel)]="newEvent.title" name="title" required />
+        </div>
+        <div>
+          <label for="description">Description:</label>
+          <textarea id="description" [(ngModel)]="newEvent.description" name="description" required></textarea>
+        </div>
+        <div>
+          <label for="date">Date:</label>
+          <input id="date" type="datetime-local" [(ngModel)]="newEvent.date" name="date" required />
+        </div>
+        <div>
+          <label for="location">Location:</label>
+          <input id="location" type="text" [(ngModel)]="newEvent.location" name="location" required />
+        </div>
+        <div>
+          <label for="maxParticipants">Max Participants:</label>
+          <input id="maxParticipants" type="number" [(ngModel)]="newEvent.maxParticipants" name="maxParticipants" required min="1" />
+        </div>
+        <button type="submit">Add Event</button>
+        <button type="button" (click)="cancel()">Cancel</button>
+      </form>
+      <p>{{ responseMessage }}</p>
+    </div>
+  
+    <!-- Modify Event Form -->
+    <div *ngIf="showModifyForm && selectedEvent" class="add-form">
+      <h3>Modify Event</h3>
+      <form (ngSubmit)="updateEvent()">
+        <div>
+          <label for="modifyTitle">Title:</label>
+          <input id="modifyTitle" type="text" [(ngModel)]="selectedEvent.title" name="modifyTitle" required />
+        </div>
+        <div>
+          <label for="modifyDescription">Description:</label>
+          <textarea id="modifyDescription" [(ngModel)]="selectedEvent.description" name="modifyDescription" required></textarea>
+        </div>
+        <div>
+          <label for="modifyDate">Date:</label>
+          <input id="modifyDate" type="datetime-local" [(ngModel)]="selectedEvent.date" name="modifyDate" required />
+        </div>
+        <div>
+          <label for="modifyLocation">Location:</label>
+          <input id="modifyLocation" type="text" [(ngModel)]="selectedEvent.location" name="modifyLocation" required />
+        </div>
+        <div>
+          <label for="modifyMaxParticipants">Max Participants:</label>
+          <input id="modifyMaxParticipants" type="number" [(ngModel)]="selectedEvent.maxParticipants" name="modifyMaxParticipants" required min="1" />
+        </div>
+        <button type="submit">Modify</button>
+        <button type="button" (click)="cancel()">Cancel</button>
+      </form>
+      <p>{{ responseMessage }}</p>
+    </div>
+  </div>

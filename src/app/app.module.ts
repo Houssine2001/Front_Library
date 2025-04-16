@@ -25,7 +25,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { BookEditComponent } from './book-edit/book-edit.component';
 import { MatCardModule } from '@angular/material/card';
 import { BookComponent } from './book/book.component';
-
+import { EventListComponent } from './event-list/event-list.component';
+import { EventDetailsComponent } from './event-details/event-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +39,9 @@ import { BookComponent } from './book/book.component';
     AuthorFormComponent,
     AuthorImportExportComponent,
     BookEditComponent,
-    BookComponent // Ajoute ici aussi
+    BookComponent ,// Ajoute ici aussi
+    EventListComponent,
+    EventDetailsComponent
   ],
   imports: [
     HttpClientModule,
