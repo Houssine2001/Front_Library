@@ -1,0 +1,64 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header">
+      <h4>{{ book ? 'Edit Book' : 'Add New Book' }}</h4>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" class="form-control" id="title" formControlName="title">
+          <div class="text-danger" *ngIf="bookForm.get('title')?.invalid && bookForm.get('title')?.touched">
+            Title is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="author">Author</label>
+          <input type="text" class="form-control" id="author" formControlName="author">
+          <div class="text-danger" *ngIf="bookForm.get('author')?.invalid && bookForm.get('author')?.touched">
+            Author is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="isbn">ISBN</label>
+          <input type="text" class="form-control" id="isbn" formControlName="isbn">
+          <div class="text-danger" *ngIf="bookForm.get('isbn')?.invalid && bookForm.get('isbn')?.touched">
+            ISBN is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea class="form-control" id="description" formControlName="description" rows="3"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="publishedYear">Published Year</label>
+          <input type="number" class="form-control" id="publishedYear" formControlName="publishedYear">
+          <div class="text-danger" *ngIf="bookForm.get('publishedYear')?.invalid && bookForm.get('publishedYear')?.touched">
+            Please enter a valid year
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="quantity">Quantity</label>
+          <input type="number" class="form-control" id="quantity" formControlName="quantity">
+          <div class="text-danger" *ngIf="bookForm.get('quantity')?.invalid && bookForm.get('quantity')?.touched">
+            Please enter a valid quantity
+          </div>
+        </div>
+
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="available" formControlName="available">
+          <label class="form-check-label" for="available">Available</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="bookForm.invalid">
+          {{ book ? 'Update Book' : 'Add Book' }}
+        </button>
+      </form>
+    </div>
+  </div>
+</div> 

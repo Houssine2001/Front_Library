@@ -1,0 +1,33 @@
+<!-- Modern Navigation Bar -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">
+      <i class="fas fa-book-reader me-2"></i>
+      Library Manager
+    </a>
+    
+    <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" [ngClass]="{'show': !isCollapsed}">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/books" [class.active]="isActive('/books')">
+            <i class="fas fa-books me-1"></i> Books
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/notes" [class.active]="isActive('/notes')">
+            <i class="fas fa-sticky-note me-1"></i> Notes
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/summaries" [class.active]="isActive('/summaries')">
+            <i class="fas fa-file-alt me-1"></i> Summaries
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav> 

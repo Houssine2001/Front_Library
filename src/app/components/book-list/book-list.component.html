@@ -1,0 +1,54 @@
+<div class="container mt-4">
+  <h2>Library Books</h2>
+  
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h4>Books List</h4>
+        </div>
+        <div class="card-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>ISBN</th>
+                <th>Available</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let book of books" (click)="selectBook(book)">
+                <td>{{ book.title }}</td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.isbn }}</td>
+                <td>{{ book.available ? 'Yes' : 'No' }}</td>
+                <td>
+                  <button class="btn btn-danger btn-sm" (click)="deleteBook(book._id!)">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4" *ngIf="selectedBook">
+      <div class="card">
+        <div class="card-header">
+          <h4>Book Details</h4>
+        </div>
+        <div class="card-body">
+          <h5>{{ selectedBook.title }}</h5>
+          <p><strong>Author:</strong> {{ selectedBook.author }}</p>
+          <p><strong>ISBN:</strong> {{ selectedBook.isbn }}</p>
+          <p><strong>Published Year:</strong> {{ selectedBook.publishedYear }}</p>
+          <p><strong>Quantity:</strong> {{ selectedBook.quantity }}</p>
+          <p><strong>Available:</strong> {{ selectedBook.available ? 'Yes' : 'No' }}</p>
+          <p><strong>Description:</strong> {{ selectedBook.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
