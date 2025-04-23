@@ -42,11 +42,11 @@ import { trigger, transition, query, style, stagger, animate } from '@angular/an
         </div>
       </div>
 
-      <!-- Note Creation Form -->
+      <!-- Note Creation/Edit Form -->
       <div class="card mb-4">
         <div class="card-body">
-          <h5 class="card-title">Créer une nouvelle note</h5>
-          <form (ngSubmit)="createNote()" #noteForm="ngForm">
+          <h5 class="card-title">{{ newNote._id ? 'Modifier la note' : 'Créer une nouvelle note' }}</h5>
+          <form (ngSubmit)="newNote._id ? updateNote() : createNote()" #noteForm="ngForm">
             <div class="mb-3">
               <label for="content" class="form-label">Contenu</label>
               <textarea 
@@ -107,9 +107,14 @@ import { trigger, transition, query, style, stagger, animate } from '@angular/an
                 name="isPublic">
               <label class="form-check-label" for="isPublic">Rendre public</label>
             </div>
-            <button type="submit" class="btn btn-primary create-btn">
-              <i class="bi bi-plus-circle me-2"></i>Créer la note
-            </button>
+            <div class="d-flex gap-2">
+              <button type="submit" class="btn btn-primary" [disabled]="noteForm.invalid">
+                {{ newNote._id ? 'Mettre à jour' : 'Créer la note' }}
+              </button>
+              <button *ngIf="newNote._id" type="button" class="btn btn-secondary" (click)="cancelEdit()">
+                Annuler
+              </button>
+            </div>
           </form>
         </div>
       </div>
@@ -297,20 +302,56 @@ export class NotesComponent implements OnInit {
   }
 
   editNote(note: any) {
-    // Implement edit functionality
-    console.log('Edit note:', note);
+    // Remplir le formulaire avec les données de la note sélectionnée
+    this.newNote = {
+      content: note.content,
+      bookId: note.bookId,
+      page: note.page,
+      chapter: note.chapter,
+      isPublic: note.isPublic,
+      _id: note._id // Ajouter l'ID pour la mise à jour
+    };
+  }
+
+  updateNote() {
+    if (!this.newNote._id) return;
+
+    this.apiService.updateNote(this.newNote._id, this.newNote).subscribe({
+      next: (updatedNote) => {
+        // Mettre à jour la note dans la liste
+        const index = this.notes.findIndex(n => n._id === updatedNote._id);
+        if (index !== -1) {
+          this.notes[index] = updatedNote;
+          this.filterNotes();
+        }
+        // Réinitialiser le formulaire
+        this.newNote = {
+          content: '',
+          bookId: '',
+          page: null,
+          chapter: '',
+          isPublic: false
+        };
+        alert('Note mise à jour avec succès');
+      },
+      error: (error) => {
+        console.error('Error updating note:', error);
+        alert('Erreur lors de la mise à jour de la note. Veuillez réessayer.');
+      }
+    });
   }
 
   deleteNote(id: string) {
-    if (confirm('Are you sure you want to delete this note?')) {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cette note ?')) {
       this.apiService.deleteNote(id).subscribe({
         next: () => {
           this.notes = this.notes.filter(note => note._id !== id);
           this.filterNotes();
+          alert('Note supprimée avec succès');
         },
         error: (error) => {
           console.error('Error deleting note:', error);
-          // Afficher un message d'erreur à l'utilisateur
+          alert('Erreur lors de la suppression de la note. Veuillez réessayer.');
         }
       });
     }
@@ -332,5 +373,16 @@ export class NotesComponent implements OnInit {
         // Afficher un message d'erreur à l'utilisateur
       }
     });
+  }
+
+  cancelEdit() {
+    this.newNote = {
+      content: '',
+      bookId: '',
+      page: null,
+      chapter: '',
+      isPublic: false,
+      userId: 'current-user-id'
+    };
   }
 } 

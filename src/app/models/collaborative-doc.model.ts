@@ -3,6 +3,7 @@ export interface CollaborativeDoc {
   title: string;
   content: string;
   author: string;
+  bookId: string;
   collaborators: string[];
   createdAt?: Date;
   updatedAt?: Date;

@@ -40,6 +40,14 @@ import { CollaborativeDoc } from '../../../models/collaborative-doc.model';
         </div>
 
         <div class="mb-3">
+          <label for="bookId" class="form-label">ID du Livre</label>
+          <input type="text" class="form-control" id="bookId" formControlName="bookId">
+          <div *ngIf="docForm.get('bookId')?.invalid && docForm.get('bookId')?.touched" class="text-danger">
+            L'ID du livre est requis
+          </div>
+        </div>
+
+        <div class="mb-3">
           <label for="collaborators" class="form-label">Collaborateurs (séparés par des virgules)</label>
           <input type="text" class="form-control" id="collaborators" formControlName="collaborators">
         </div>
@@ -69,6 +77,7 @@ export class DocFormComponent implements OnInit {
       title: ['', Validators.required],
       content: ['', Validators.required],
       author: ['', Validators.required],
+      bookId: ['', Validators.required],
       collaborators: ['']
     });
   }

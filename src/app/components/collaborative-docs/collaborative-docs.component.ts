@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Modal } from 'bootstrap';
 
 interface Document {
@@ -68,7 +69,6 @@ interface DocumentVersion {
                 <small class="text-muted">Collaborators: {{doc.collaborators.length || 0}}</small>
               </div>
               <div class="btn-group">
-                <button class="btn btn-sm btn-primary" (click)="editDoc(doc)">Edit</button>
                 <button class="btn btn-sm btn-danger" (click)="deleteDoc(doc._id)">Delete</button>
                 <button class="btn btn-sm btn-info" (click)="downloadPdf(doc._id)">Download PDF</button>
               </div>
@@ -129,9 +129,12 @@ export class CollaborativeDocsComponent implements OnInit {
   };
   private modal: Modal | null = null;
 
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private apiService: ApiService,
+    private router: Router
+  ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadDocs();
   }
 
@@ -164,7 +167,7 @@ export class CollaborativeDocsComponent implements OnInit {
           title: '',
           content: '',
           bookId: '',
-          ownerId: 'current-user-id', // TODO: Replace with actual user ID from auth service
+          ownerId: 'current-user-id',
           collaborators: []
         };
       },
@@ -173,17 +176,20 @@ export class CollaborativeDocsComponent implements OnInit {
   }
 
   editDoc(doc: Document) {
-    // Implement edit functionality
-    console.log('Edit document:', doc);
+    this.router.navigate(['/docs', doc._id, 'edit']);
   }
 
   deleteDoc(id: string) {
     if (confirm('Are you sure you want to delete this document?')) {
-      this.apiService.deleteDoc(id).subscribe({
+      const userId = localStorage.getItem('userId') || 'current-user-id'; // TODO: Replace with actual user ID from auth service
+      this.apiService.deleteDoc(id, userId).subscribe({
         next: () => {
           this.docs = this.docs.filter(doc => doc._id !== id);
         },
-        error: (error: Error) => console.error('Error deleting document:', error)
+        error: (error: Error) => {
+          console.error('Error deleting document:', error);
+          alert('Error deleting document. Please try again.');
+        }
       });
     }
   }

@@ -1,0 +1,65 @@
+<div class="summaries-container">
+  <div class="summaries-list">
+    <!-- Formulaire de création -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <h5 class="card-title">Créer un nouveau résumé</h5>
+        <form (ngSubmit)="createSummary()">
+          <div class="mb-3">
+            <label for="title" class="form-label">Titre</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="title" 
+              [(ngModel)]="newSummary.title" 
+              name="title" 
+              required>
+          </div>
+          <div class="mb-3">
+            <label for="content" class="form-label">Contenu</label>
+            <textarea 
+              class="form-control" 
+              id="content" 
+              [(ngModel)]="newSummary.content" 
+              name="content" 
+              rows="5" 
+              required></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="author" class="form-label">Auteur</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="author" 
+              [(ngModel)]="newSummary.author" 
+              name="author" 
+              required>
+          </div>
+          <button type="submit" class="btn btn-primary">Créer le résumé</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Liste des résumés -->
+    <div class="row">
+      <div class="col-md-6 mb-4" *ngFor="let summary of summaries">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">{{summary.title}}</h5>
+            <p class="card-text">{{summary.content}}</p>
+            <p class="card-text">
+              <small class="text-muted">
+                Par {{summary.author}} - {{summary.createdAt | date}}
+              </small>
+            </p>
+            <p class="card-text">
+              <small class="text-muted">
+                👍 {{summary.likes}}
+              </small>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

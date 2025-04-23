@@ -3,11 +3,13 @@ import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { trigger, transition, query, style, stagger, animate } from '@angular/animations';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 @Component({
   selector: 'app-summaries',
   standalone: true,
   imports: [CommonModule, FormsModule],
+  providers: [provideAnimations()],
   template: `
     <div class="container mt-4">
       <h2>Résumés</h2>
@@ -174,6 +176,25 @@ import { trigger, transition, query, style, stagger, animate } from '@angular/an
     .card-title {
       font-weight: 600;
       color: #2c3e50;
+    }
+    .btn-primary {
+      opacity: 1 !important;
+      background-color: #0d6efd;
+      border-color: #0d6efd;
+      color: white;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: background-color 0.2s;
+    }
+    .btn-primary:hover {
+      background-color: #0b5ed7;
+      border-color: #0b5ed7;
+    }
+    .btn-primary:disabled {
+      background-color: #0d6efd !important;
+      border-color: #0d6efd !important;
+      opacity: 1 !important;
     }
   `],
   animations: [
