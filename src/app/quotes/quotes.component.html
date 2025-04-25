@@ -1,0 +1,62 @@
+<div class="quote-container">
+  <div class="header">
+    <h1 class="section-title">Quotes List</h1>
+    <div>
+      <button class="add-button" (click)="toggleModal(false)">Add Quote</button>
+      <button class="add-button generate-button" (click)="toggleModal(true)">Generate Quote</button>
+    </div>
+  </div>
+
+  <div class="quote-cards">
+    <div class="quote-card" *ngFor="let quote of quotes">
+      <div>
+        <p class="quote-text">"{{ quote.text }}"</p>
+        <p class="quote-author">- {{ quote.author }}</p>
+        <p class="quote-category">Category: {{ quote.category }}</p>
+        <p class="quote-date">Created: {{ quote.createdAt | date:'medium' }}</p>
+      </div>
+      <div class="card-actions">
+        <span class="icon delete-icon" (click)="deleteQuote(quote.id)" title="Delete">
+          <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Add/Generate Quote Form -->
+  <div class="modal" *ngIf="showModal">
+    <div class="modal-content">
+      <span class="close" (click)="toggleModal()">×</span>
+      <h3>{{ isGenerateMode ? 'Generate Random Quote' : 'Add New Quote' }}</h3>
+      <form [formGroup]="quoteForm" (ngSubmit)="addQuote()">
+        <div>
+          <label for="text">Quote:</label>
+          <textarea id="text" formControlName="text" placeholder="Enter quote text"></textarea>
+          <p class="error" *ngIf="quoteForm.get('text')?.touched && quoteForm.get('text')?.hasError('required')">
+            Quote is required
+          </p>
+        </div>
+        <div>
+          <label for="author">Author:</label>
+          <input id="author" type="text" formControlName="author" placeholder="Enter author name" />
+          <p class="error" *ngIf="quoteForm.get('author')?.touched && quoteForm.get('author')?.hasError('required')">
+            Author is required
+          </p>
+        </div>
+        <div>
+          <label for="category">Category:</label>
+          <input id="category" type="text" formControlName="category" placeholder="Enter category" />
+          <p class="error" *ngIf="quoteForm.get('category')?.touched && quoteForm.get('category')?.hasError('required')">
+            Category is required
+          </p>
+        </div>
+        <div class="modal-buttons">
+          <button type="submit" [disabled]="quoteForm.invalid">Save</button>
+          <button type="button" (click)="cancel()">Cancel</button>
+          <button *ngIf="isGenerateMode" type="button" (click)="fetchRandomQuote()">Generate New</button>
+        </div>
+      </form>
+      <p class="error">{{ responseMessage }}</p>
+    </div>
+  </div>
+</div>

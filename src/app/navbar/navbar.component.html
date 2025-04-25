@@ -6,9 +6,10 @@
           <span class="logo-text">Book<span class="highlight">Haven</span></span>
         </a>
       </div>
-      
+
       <nav class="main-nav">
         <ul class="nav-links">
+          <li><a routerLink="/QuotesList" routerLinkActive="active">Voir les citations</a></li>
           <li><a routerLink="/ListAuthors" routerLinkActive="active">Gestion des Auteurs</a></li>
           <li><a routerLink="/ListEvents" routerLinkActive="active">Gestion des évenements</a></li>
           <li><a routerLink="/books" routerLinkActive="active">Explore Books</a></li>
@@ -25,10 +26,10 @@
           </li>
         </ul>
       </nav>
-      
+
       <!-- ...existing code... -->
     </div>
-    
+
     <div class="mobile-menu" [class.active]="mobileMenuOpen">
       <ul class="mobile-nav-links">
         <li><a routerLink="/ListAuthors" routerLinkActive="active" (click)="closeMobileMenu()">Gestion des Auteurs</a></li>

@@ -1,18 +1,31 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { Book } from '../models/Book'; // Attention à la casse (book vs Book)
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookService {
-  private apiUrl = 'http://localhost:8080/api/books'; // Ton port, ajuste à 8080 si nécessaire
+  private apiUrl1 = `${environment.apiUrl}/api/books`;
+  private apiUrl = `${environment.apiUrl}/api/book`;
+
 
   constructor(private http: HttpClient) { }
+  
+  getBooks(): Observable<Book[]> {
+    return this.http.get<Book[]>(`${this.apiUrl1}/all`)
+      .pipe(
+        catchError(error => {
+          console.error('Error fetching books:', error);
+          return throwError(() => error);
+        })
+      );
+  }
 
   // Récupérer tous les livres
-  getBooks(): Observable<Book[]> {
+  getBookse(): Observable<Book[]> {
     return this.http.get<Book[]>(this.apiUrl); // Appel à /api/books
   }
 
